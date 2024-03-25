@@ -1,6 +1,6 @@
 
 <p align="center">
-	<img src="docs/paintlog.png" width="500px" height="500px">
+	<img src="docs/paintlog.png">
 </p>
 
 <p align="center">Logging for important Python applications will become more beautiful and functional!</p>
