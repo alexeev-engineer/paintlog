@@ -21,6 +21,10 @@ Paintlog will help you track and work with your Python applications easier and m
 > [!CAUTION]
 > At the moment, Paintlog is under active development, many things may not work, and this version is not recommended for use (all at your own risk).
 
+<p align="center">
+    <img src="docs/screenshot.png">
+</p>
+
 ## Contact and support
 If you have questions about using Paintlog, then create an [issue](https://github.com/alexeev-engineer/paintlog/issues/new) in the repository or write to me at bro.alexeev@inbox.ru.
 
@@ -48,7 +52,7 @@ Here you can see what paintlog can already do and what else is planned to be add
  - [x] Logging
  - [x] Benchmark and decorators for funcs
  - [ ] Update advanced print for debug (pydbg_obj)
- - [ ] Update docs and commentaries in code
+ - [ ] Update docs and commentaries in code1
 
 ## Copyright
 Copyright © 2024, Alexeev Bronislav and Core86® LLC

@@ -1,5 +1,5 @@
 <p align="center">
-	<img src="docs/paintlog.png" width="500px" height="500px">
+	<img src="./paintlog.png" width="500px" height="500px">
 </p>
 
 <p align="center">Paintlog documentation</p>

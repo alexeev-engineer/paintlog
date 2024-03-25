@@ -60,3 +60,7 @@ pydbg_obj | list_array with value [1, 2, 3, "Hi", True, 12.2]
 [OTHER 2024-03-26 00:31:56.750475] Highlight SOME TEXT
 BOLD RED example
 ```
+
+<p align="center">
+    <img src="./screenshot.png">
+</p>
