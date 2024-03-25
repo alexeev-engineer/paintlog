@@ -1,0 +1,39 @@
+[project]
+name = "Paintlog"
+version = "0.1.0"
+
+authors = [
+	{ name="Alexeev Bronislav", email="bro.alexeev@inbox.ru" },
+]
+maintainers = [
+	{ name="Alexeev Bronislav", email="bro.alexeev@inbox.ru" },
+]
+
+description = "Logging for important Python applications will become more beautiful and functional!"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+	"Programming Language :: Python :: 3",
+	"License :: OSI Approved :: GNU GPL v3",
+	"Operating System :: Linux"
+]
+license = {file = "LICENSE"}
+dependencies = [
+	'ruff',
+]
+keywords = ["logging", 'colors', 'paint', 'paintlog', 'log']
+
+[project.urls]
+Homepage = "https://github.com/alexeev-engineer/paintlog"
+Issues = "https://github.com/alexeev-engineer/paintlog/issues"
+Repository = "https://github.com/alexeev-engineer/paintlog"
+Changelog = "https://github.com/alexeev-engineer/paintlog/main/CHANGELOG.md"
+
+[tool.ruff]
+show-fixes = true
+lint.select = [
+	"E",
+	"F",
+	"UP",
+	"D"
+]
