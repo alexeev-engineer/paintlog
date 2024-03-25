@@ -485,7 +485,7 @@ class Logger:
 	def debug_func(self, func):
 		def wrapper():
 			func()
-			message = f'debug {func} @ Function {FG.blue} {func.__name__}(){Style.reset} executed at {FG.magenta}{datetime.now()}{Style.reset}'
+			message = f'debug @ Function {FG.blue} {func}(){Style.reset} executed at {FG.magenta}{datetime.now()}{Style.reset}'
 			self.write_to_log(message)
 			debug_message(message, True)
 		return wrapper

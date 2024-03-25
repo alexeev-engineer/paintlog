@@ -1,6 +1,6 @@
 [project]
 name = "paintlogio-py"
-version = "0.1.1"
+version = "0.1.2"
 
 authors = [
 	{ name="Alexeev Bronislav", email="bro.alexeev@inbox.ru" },
@@ -18,7 +18,11 @@ classifiers = [
 ]
 license = {file = "LICENSE"}
 dependencies = [
-	'ruff', 'colorama', 'executing', 'six', 'asttokens'
+	'ruff', 
+	'colorama', 
+	'executing', 
+	'six', 
+	'asttokens'
 ]
 keywords = ["logging", 'colors', 'paint', 'paintlog', 'log']
 
