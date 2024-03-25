@@ -43,12 +43,12 @@ To run the software you will have to install the necessary programs and dependen
 ## Functional
 Here you can see what paintlog can already do and what else is planned to be added in the future:
 
- - [x] Transition from 16-bit real address mode to protected 32-bit mode
- - [ ] Create kernel in C language
- - [ ] Create screen driver
- - [ ] Create shell
- - [ ] Create keyboard driver
- - [ ] Create file system
+ - [x] Advanced print for debug (pydbg_obj)
+ - [x] Colors
+ - [x] Logging
+ - [x] Benchmark and decorators for funcs
+ - [ ] Update advanced print for debug (pydbg_obj)
+ - [ ] Update docs and commentaries in code
 
 ## Copyright
 Copyright © 2024, Alexeev Bronislav and Core86® LLC
