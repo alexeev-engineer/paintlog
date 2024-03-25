@@ -1,6 +1,6 @@
 [project]
-name = "Paintlog"
-version = "0.1.0"
+name = "paintlogio-py"
+version = "0.1.1"
 
 authors = [
 	{ name="Alexeev Bronislav", email="bro.alexeev@inbox.ru" },
@@ -14,12 +14,11 @@ readme = "README.md"
 requires-python = ">=3.10"
 classifiers = [
 	"Programming Language :: Python :: 3",
-	"License :: OSI Approved :: GNU GPL v3",
-	"Operating System :: Linux"
+    "Operating System :: OS Independent",
 ]
 license = {file = "LICENSE"}
 dependencies = [
-	'ruff',
+	'ruff', 'colorama', 'executing', 'six', 'asttokens'
 ]
 keywords = ["logging", 'colors', 'paint', 'paintlog', 'log']
 
@@ -37,3 +36,7 @@ lint.select = [
 	"UP",
 	"D"
 ]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"

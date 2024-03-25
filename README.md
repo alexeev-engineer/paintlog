@@ -1,6 +1,6 @@
 
 <p align="center">
-	<img src="docs/paintlog.png">
+	<img src="https://github.com/alexeev-engineer/paintlog/blob/main/docs/paintlog.png">
 </p>
 
 <p align="center">Logging for important Python applications will become more beautiful and functional!</p>
@@ -22,7 +22,7 @@ Paintlog will help you track and work with your Python applications easier and m
 > At the moment, Paintlog is under active development, many things may not work, and this version is not recommended for use (all at your own risk).
 
 <p align="center">
-    <img src="docs/screenshot.png">
+    <img src="https://github.com/alexeev-engineer/paintlog/blob/main/docs/screenshot.png">
 </p>
 
 ## Contact and support
@@ -35,14 +35,21 @@ paintlog is an Open Source project, and it only survives due to your feedback an
 Project releases are available at [this link](https://github.com/alexeev-engineer/paintlog/releases).
 
 ## Documentation
-You can read the usage documentation at [this link](./docs/index.md).
+You can read the usage documentation at [this link](https://github.com/alexeev-engineer/paintlog/blob/main/docs/index.md).
+
+## Installion
+Just one command:
+
+```bash
+pip install paintlogio-py
+```
 
 ## Requirements
 To run the software you will have to install the necessary programs and dependencies, such as:
 
  + Python interpreter (>=3.10)
  + PIP package manager (>=22.0)
- + Python libraries (listed in [requirements.txt](./requirements.txt))
+ + Python libraries (listed in [requirements.txt](https://github.com/alexeev-engineer/paintlog/blob/main/requirements.txt))
 
 ## Functional
 Here you can see what paintlog can already do and what else is planned to be added in the future:
