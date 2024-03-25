@@ -1,3 +1,15 @@
+commit 3e64b9d42e64706135177cd3414c8ad3c0d8bb30
+Author: Alexeev Bronislav <bro.alexeev@inbox.ru>
+Date:   Tue Mar 26 00:38:35 2024 +0700
+
+    docs: update reqs and readme
+
+commit b3099de463835d98356e2f341dabc503e8416efd
+Author: Alexeev Bronislav <bro.alexeev@inbox.ru>
+Date:   Tue Mar 26 00:36:16 2024 +0700
+
+    update changelog
+
 commit 473307b48d47c1a753916b6704f284a9e181288f
 Author: Alexeev Bronislav <bro.alexeev@inbox.ru>
 Date:   Tue Mar 26 00:35:48 2024 +0700
