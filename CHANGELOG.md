@@ -1,3 +1,21 @@
+commit 49975ae2d767105a08c246fba1a057d954177ecc
+Author: Alexeev Bronislav <bro.alexeev@inbox.ru>
+Date:   Tue Mar 26 00:59:20 2024 +0700
+
+    update docs
+
+commit 60fd9ce2b8d7af5de877114be9abe92478391b8d
+Author: Alexeev Bronislav <bro.alexeev@inbox.ru>
+Date:   Tue Mar 26 00:56:49 2024 +0700
+
+    update docs
+
+commit ef0b87d4ccb16fb6584c15c4e6b01cc45088ed2d
+Author: Alexeev Bronislav <bro.alexeev@inbox.ru>
+Date:   Tue Mar 26 00:38:50 2024 +0700
+
+    update changelog
+
 commit 3e64b9d42e64706135177cd3414c8ad3c0d8bb30
 Author: Alexeev Bronislav <bro.alexeev@inbox.ru>
 Date:   Tue Mar 26 00:38:35 2024 +0700
