@@ -1,3 +1,15 @@
+commit 94fe8b315a2e9f06b72351f1c7ce4a5cf03a5e66
+Author: Alexeev Bronislav <bro.alexeev@inbox.ru>
+Date:   Tue Mar 26 02:09:09 2024 +0700
+
+    upload to pypi
+
+commit 6c19eb273ff2cdafddfc9bde65eb118cfc91c3f2
+Author: Alexeev Bronislav <bro.alexeev@inbox.ru>
+Date:   Tue Mar 26 01:00:00 2024 +0700
+
+    update changelog
+
 commit 49975ae2d767105a08c246fba1a057d954177ecc
 Author: Alexeev Bronislav <bro.alexeev@inbox.ru>
 Date:   Tue Mar 26 00:59:20 2024 +0700
