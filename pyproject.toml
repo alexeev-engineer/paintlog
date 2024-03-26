@@ -1,6 +1,6 @@
 [project]
 name = "paintlogio-py"
-version = "0.1.2"
+version = "0.2.2"
 
 authors = [
 	{ name="Alexeev Bronislav", email="bro.alexeev@inbox.ru" },
@@ -23,9 +23,9 @@ dependencies = [
 	'executing', 
 	'six', 
 	'asttokens',
-	'pygments'
+	'Pygments'
 ]
-keywords = ["logging", 'colors', 'paint', 'paintlog', 'log']
+keywords = ["logging", 'colors', 'paint', 'paintlog', 'log', 'messageprinter', 'msgprinter', 'message_printer', 'message', 'icecream', 'print', 'printer', 'debug']
 
 [project.urls]
 Homepage = "https://github.com/alexeev-engineer/paintlog"

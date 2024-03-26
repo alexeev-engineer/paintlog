@@ -6,6 +6,7 @@ BSD 3 Clause License
 """
 from time import monotonic
 import ast
+import logging
 import inspect
 import pprint
 import sys
@@ -366,8 +367,38 @@ class Logger:
 		self.filename = filename
 		self.level = level
 
-		if self.level not in ['debug', 'info', 'warn', 'error']:
+		if self.level.lower() not in ['debug', 'info', 'warn', 'error', 'critical']:
 			raise ValueError(f'Level of logging {self.level} is not supported. Please use debug, info, warn of error')
+		else:
+			match self.level:
+				case 'debug':
+					self.level = logging.DEBUG
+				case 'info':
+					self.level = logging.INFO
+				case 'warn':
+					self.level = logging.WARNING
+				case 'error':
+					self.level = logging.ERROR
+				case 'critical':
+					self.level = logging.CRITICAL
+				case _:
+					self.level = logging.DEBUG
+
+			logging.getLogger(__name__)
+			self.load_config(self.level, self.filename, 'a', "%(name)s/%(module)s at %(lineno)d [%(levelname)s %(asctime)s] %(message)s (function %(funcName)s)")
+
+	def load_config(self, level, filename: str, filemode: str, log_format: str):
+		"""Load basic config for logging.
+
+		Arguments:
+		---------
+		 + level - level of logging (debug, info, warn, error, critical)
+		 + filename: str - logfile name
+		 + filemode: str - logfile mode (a, w, wb...)
+		 + log_format: str - format string for log messages
+
+		"""
+		logging.basicConfig(level=level, filename=filename, filemode=filemode, format=log_format)
 
 	def write_to_log(self, message: str) -> bool:
 		"""Helper function for writing to a log file.
@@ -404,18 +435,21 @@ class Logger:
 
 		if msg_type == 'info':
 			info_message(message, highlight)
+			logging.info(message)
 		elif msg_type == 'warn':
 			warn_message(message, highlight)
+			logging.warning(message)
 		elif msg_type == 'error':
 			error_message(message, highlight)
+			logging.error(message)
 		elif msg_type == 'debug':
 			debug_message(message, highlight)
+			logging.debug(message)
 		elif msg_type == 'exception':
 			run_exception(message, highlight)
+			logging.critical(message)
 		else:
 			other_message(message, msg_type.upper(), highlight)
-
-		self.write_to_log(f'[{msg_type.upper()} {datetime.now()}] {message}')
 
 	def debug_func(self, func):
 		"""Decorator for print info about function.
@@ -427,9 +461,8 @@ class Logger:
 		"""
 		def wrapper():
 			func()
-			message = f'debug @ Function {func}() executed at {datetime.now()}'
-			self.log(message, 'debug')
-			debug_message(message, True)
+		message = f'debug @ Function {func}() executed at {datetime.now()}'
+		self.log(message, 'debug', True)
 		return wrapper
 
 
@@ -441,12 +474,12 @@ def benchmark(func):
 	+ func - executed func
 
 	"""
+	start = monotonic()
 	def wrapper():
-		start = monotonic()
 		func()
-		end = monotonic()
-		total = round(end - start, 5)
-		debug_message(f'benchmark {func} @ Execution function {func.__name__} time: {total} sec', True)
+	end = monotonic()
+	total = round(end - start, 5)
+	debug_message(f'benchmark {func} @ Execution function {func.__name__} time: {total} sec', True)
 	return wrapper
 
 

@@ -1,3 +1,33 @@
+commit ddeb4e81db59642263d215e9a3da1b6071a39c46
+Author: Alexeev Bronislav <bro.alexeev@inbox.ru>
+Date:   Wed Mar 27 00:22:50 2024 +0700
+
+    feat/style/fix: fix style errors, bugs, update docs
+
+commit 911d39f55b73967de183f011ce8cbd21a6f2d0d6
+Author: Alexeev Bronislav <bro.alexeev@inbox.ru>
+Date:   Wed Mar 27 00:13:47 2024 +0700
+
+    feat/docs/fix: fix some bugs, update code and docs
+
+commit 937ecbaccf6d1053f223c791dc05725ac141fd2e
+Author: Alexeev Bronislav <bro.alexeev@inbox.ru>
+Date:   Tue Mar 26 23:44:12 2024 +0700
+
+    feat/docs: fix readme, fix many bugs, update pydbg_obj and example file, update logger
+
+commit b83df79580118c2013be9073aba214d4388c98cc
+Author: Alexeev Bronislav <bro.alexeev@inbox.ru>
+Date:   Tue Mar 26 02:24:19 2024 +0700
+
+    update logger
+
+commit aea4a0cb8ec45a3b418181d9effe4b438d966531
+Author: Alexeev Bronislav <bro.alexeev@inbox.ru>
+Date:   Tue Mar 26 02:09:25 2024 +0700
+
+    update changelog
+
 commit 94fe8b315a2e9f06b72351f1c7ce4a5cf03a5e66
 Author: Alexeev Bronislav <bro.alexeev@inbox.ru>
 Date:   Tue Mar 26 02:09:09 2024 +0700

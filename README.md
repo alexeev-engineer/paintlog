@@ -119,10 +119,10 @@ Here you can see what paintlog can already do and what else is planned to be add
  - [x] Colors
  - [x] Logging
  - [x] Benchmark and decorators for funcs
- - [ ] Update advanced print for debug (pydbg_obj)
- - [ ] Update docs and commentaries in code
+ - [x] Update advanced print for debug (pydbg_obj)
+ - [x] Improve logging
  - [ ] Upload logs to Google Drive
- - [ ] Improve logging
+ - [ ] Support async
 
 ## Copyright
 Copyright © 2024, Alexeev Bronislav
