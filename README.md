@@ -62,6 +62,6 @@ Here you can see what paintlog can already do and what else is planned to be add
  - [ ] Update docs and commentaries in code1
 
 ## Copyright
-Copyright © 2024, Alexeev Bronislav and Core86® LLC
+Copyright © 2024, Alexeev Bronislav
 
 All rights reversed

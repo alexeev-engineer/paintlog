@@ -129,35 +129,25 @@ class Style:
 
 
 def info_message(text: str, highlight: bool=False) -> str:
-	if not highlight:
-		print(f"{FG.green}[INFO {datetime.now()}]{Style.reset} {text}")
-	if highlight:
-		print(f'{BG.green}{FG.black}[info {datetime.now()}]{Style.reset} {text}')
+	prefix = f'{BG.green}{FG.black}' if highlight else f'{FG.green}'
+	print(f'{prefix}[DEBUG {datetime.now()}]{Style.reset} {text}{Style.reset}')
 
 
 def warn_message(text: str, highlight: bool=False) -> str:
-	if not highlight:
-		print(f"{FG.yellow}[WARN {datetime.now()}]{Style.reset} {text}")
-	else:
-		print(f'{BG.yellow}{FG.black}[WARN {datetime.now()}]{Style.reset} {text}')
+	prefix = f'{BG.yellow}{FG.black}' if highlight else f'{FG.yellow}'
+	print(f'{prefix}[DEBUG {datetime.now()}]{Style.reset} {text}{Style.reset}')
 
 
 def error_message(text: str, highlight: bool=False) -> str:
-	if not highlight:
-		print(f"{FG.red}[ERR {datetime.now()}]{Style.reset} {text}")
-	else:
-		print(f'{BG.red}{FG.black}[ERR {datetime.now()}]{Style.reset} {text}')
+	prefix = f'{BG.red}{FG.black}' if highlight else f'{FG.red}'
+	print(f'{prefix}[DEBUG {datetime.now()}]{Style.reset} {text}{Style.reset}')
 
 
 def debug_message(text: str, highlight: bool=False) -> str:
-	if not highlight:
-		print(f"{FG.magenta}[DEBUG {datetime.now()}]{Style.reset} {text}")
-	else:
-		print(f'{BG.magenta}{FG.black}[DEBUG {datetime.now()}]{Style.reset} {text}')
+	prefix = f'{BG.magenta}{FG.black}' if highlight else f'{FG.magenta}'
+	print(f'{prefix}[DEBUG {datetime.now()}]{Style.reset} {text}{Style.reset}')
 
 
 def other_message(text: str, msg_type: str, highlight: bool=False) -> str:
-	if not highlight:
-		print(f"{FG.magenta}[{msg_type.upper()} {datetime.now()}]{Style.reset} {text}")
-	else:
-		print(f'{BG.magenta}{FG.black}[{msg_type.upper()} {datetime.now()}]{Style.reset} {text}')
+	prefix = f'{BG.cyan}{FG.black}' if highlight else f'{FG.cyan}'
+	print(f'{prefix}[{msg_type.upper()} {datetime.now()}]{Style.reset} {text}{Style.reset}')

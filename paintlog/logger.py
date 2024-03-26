@@ -1,3 +1,9 @@
+#!venv/bin/python3
+"""Paintlog Example File.
+
+Copyright Alexeev Bronislav (C) 2024
+BSD 3 Clause License
+"""
 from time import monotonic
 import ast
 import inspect
@@ -11,12 +17,18 @@ from os.path import basename, realpath
 from textwrap import dedent
 import colorama
 import executing
-from paintlog.paint import Style, FG, debug_message, info_message, BG, warn_message, error_message, other_message
+from pygments import highlight
+from pygments.formatters import Terminal256Formatter
+from pygments.lexers import PythonLexer as PyLexer, Python3Lexer as Py3Lexer
+
+from paintlog.paint import debug_message, info_message, warn_message, error_message, other_message
+from paintlog.color_highlight import CatppuccinMocha
 
 
 PYTHON2 = (sys.version_info[0] == 2)
 
 _absent = object()
+DEFAULT_THEME = CatppuccinMocha
 
 
 @contextmanager
@@ -41,164 +53,24 @@ def isLiteral(s):
 	return True
 
 
-class ClassName:
-	"""docstring for ClassName."""
-
-	def __init__(self, arg):
-		super().__init__()
-		self.arg = arg
-		
+def bindStaticVariable(name, value):
+    def decorator(fn):
+        setattr(fn, name, value)
+        return fn
+    return decorator
 
 
-def colorize(string):
-	"""Colorize string."""
-	if len(string.split('\n')) > 0:
-		result = ''
-		for el in string.split('\n'):
-			el = el.strip()
-			if not el.startswith('pydbg_obj |'):
-				prefix = f'{Style.dim}pydbg_obj |{Style.reset}'
-				varname = el.split(':')[0]
-				value = el.split(': ')[1]
-				value_eval = ast.literal_eval(value)
-
-				if type(value_eval) == str:
-					value = f'{Style.italic}{FG.green}{value}{Style.reset}'
-				elif type(value_eval) == int or type(value_eval) == float:
-					value = f'{Style.italic}{FG.magenta}{value}{Style.reset}'
-				elif type(value_eval) == bool:
-					value = f'{Style.bold}{FG.yellow}{value}{Style.reset}'
-				elif type(value_eval) == list:
-					value = ''
-					start = f'{FG.blue}['
-
-					counter = 0
-					for el in value_eval:
-						if type(el) == int or type(el) == float:
-							if value_eval[counter] == value_eval[-1]:
-								value += f'{Style.italic}{FG.magenta}{el}{FG.white}{Style.reset}'
-							else:
-								value += f'{Style.italic}{FG.magenta}{el}{FG.white}, {Style.reset}'
-						elif type(el) == str:
-							if value_eval[counter] == value_eval[-1]:
-								value += f'{Style.italic}{FG.green}"{el}"{FG.white}{Style.reset}'
-							else:
-								value += f'{Style.italic}{FG.green}"{el}"{FG.white}, {Style.reset}'
-						elif type(el) == bool:
-							if value_eval[counter] == value_eval[-1]:
-								value += f'{Style.bold}{FG.yellow}{el}{FG.white}{Style.reset}'
-							else:
-								value += f'{Style.bold}{FG.yellow}{el}{FG.white}, {Style.reset}'
-
-						counter += 1
-					start = f'{FG.blue}['
-					value = f'{value}'
-
-					end = f'{FG.blue}]'
-					value = f'{start}{value}{end}'
-				else:
-					value = f'{Style.italic}{FG.cyan}{value}'
-
-				result += f'{prefix} {Style.bold}{varname}{Style.reset} with value {value}{Style.reset}\n'
-			else:
-				total = el.split('pydbg_obj | ')
-				el = total[1]
-				prefix = f'{Style.dim}pydbg_obj |{Style.reset}'
-				varname = el.split(':')[0]
-				value = el.split(': ')[1]
-				value_eval = ast.literal_eval(value)
-
-				if type(value_eval) == str:
-					value = f'{Style.italic}{FG.green}{value}{Style.reset}'
-				elif type(value_eval) == int or type(value_eval) == float:
-					value = f'{Style.italic}{FG.magenta}{value}{Style.reset}'
-				elif type(value_eval) == bool:
-					value = f'{Style.bold}{FG.yellow}{value}{Style.reset}'
-				elif type(value_eval) == list:
-					value = ''
-					start = f'{FG.blue}['
-
-					counter = 0
-					for el in value_eval:
-						if type(el) == int or type(el) == float:
-							if value_eval[counter] == value_eval[-1]:
-								value += f'{Style.italic}{FG.magenta}{el}{FG.white}{Style.reset}'
-							else:
-								value += f'{Style.italic}{FG.magenta}{el}{FG.white}, {Style.reset}'
-						elif type(el) == str:
-							if value_eval[counter] == value_eval[-1]:
-								value += f'{Style.italic}{FG.green}"{el}"{FG.white}{Style.reset}'
-							else:
-								value += f'{Style.italic}{FG.green}"{el}"{FG.white}, {Style.reset}'
-						elif type(el) == bool:
-							if value_eval[counter] == value_eval[-1]:
-								value += f'{Style.bold}{FG.yellow}{el}{FG.white}{Style.reset}'
-							else:
-								value += f'{Style.bold}{FG.yellow}{el}{FG.white}, {Style.reset}'
-
-						counter += 1
-					start = f'{FG.blue}['
-					value = f'{value}'
-
-					end = f'{FG.blue}]'
-					value = f'{start}{value}{end}'
-				else:
-					value = f'{Style.italic}{FG.cyan}{value}'
-
-				result += f'{prefix} {Style.bold}{varname}{Style.reset} with value {value}{Style.reset}\n'
-
-		return result
-	prefix = f"{Style.dim}{string.split(' | ')[0]} | {Style.reset}"
-	string = string.split(' | ')[1]
-
-	varname = string.split(':')[0]
-	value = string.split(': ')[1]
-	value_eval = ast.literal_eval(value)
-
-	if type(value_eval) == str:
-		value = f'{Style.italic}{FG.green}{value}{Style.reset}'
-	elif type(value_eval) == int or type(value_eval) == float:
-		value = f'{Style.italic}{FG.magenta}{value}{Style.reset}'
-	elif type(value_eval) == bool:
-		value = f'{Style.bold}{FG.yellow}{value}{Style.reset}'
-	elif type(value_eval) == list:
-		value = ''
-		start = f'{FG.blue}['
-
-		counter = 0
-		for el in value_eval:
-			if type(el) == int or type(el) == float:
-				if value_eval[counter] == value_eval[-1]:
-					value += f'{Style.italic}{FG.magenta}{el}{FG.white}{Style.reset}'
-				else:
-					value += f'{Style.italic}{FG.magenta}{el}{FG.white}, {Style.reset}'
-			elif type(el) == str:
-				if value_eval[counter] == value_eval[-1]:
-					value += f'{Style.italic}{FG.green}"{el}"{FG.white}{Style.reset}'
-				else:
-					value += f'{Style.italic}{FG.green}"{el}"{FG.white}, {Style.reset}'
-			elif type(el) == bool:
-				if value_eval[counter] == value_eval[-1]:
-					value += f'{Style.bold}{FG.yellow}{el}{FG.white}{Style.reset}'
-				else:
-					value += f'{Style.bold}{FG.yellow}{el}{FG.white}, {Style.reset}'
-
-			counter += 1
-		start = f'{FG.blue}['
-		value = f'{value}'
-
-		end = f'{FG.blue}]'
-		value = f'{start}{value}{end}'
-	else:
-		value = f'{Style.italic}{FG.cyan}{value}'
-
-	string = f'{Style.bold}{varname}{Style.reset} with value {value}{Style.reset}'
-
-	return f'{prefix}{string}'
+@bindStaticVariable('formatter', Terminal256Formatter(style=DEFAULT_THEME))
+@bindStaticVariable(
+	'lexer', PyLexer(ensurenl=False) if PYTHON2 else Py3Lexer(ensurenl=False))
+def colorize(s):
+	"""Colorize with pygments"""
+	self = colorize
+	return highlight(s, self.lexer, self.formatter)
 
 
 def colorized_stderr_print(obj):
-	"""Colorized stderr print"""
+	"""Colorized stderr print."""
 	for s in obj.split('; '):
 		if not s.startswith('pydbg_obj |'):
 			s = f'pydbg_obj | {s}'
@@ -223,14 +95,15 @@ NO_SOURCE_AVAILABLE_WARNING_MESSAGE = (
 
 
 def callOrValue(obj):
-	"""Call or value"""
+	"""Call or value."""
 	return obj() if callable(obj) else obj
 
 
 class Source(executing.Source):
-	"""Source"""
+	"""Source."""
+
 	def get_text_with_indentation(self, node):
-		"""Get text with indents"""
+		"""Get text with indents."""
 		result = self.asttokens().get_text(node)
 		if '\n' in result:
 			result = ' ' * node.first_token.start[1] + result
@@ -240,7 +113,7 @@ class Source(executing.Source):
 
 
 def prefixLines(prefix, s, startAtLine=0):
-	"""Prefix lines"""
+	"""Prefix lines."""
 	lines = s.splitlines()
 
 	for i in range(startAtLine, len(lines)):
@@ -250,6 +123,7 @@ def prefixLines(prefix, s, startAtLine=0):
 
 
 def prefixFirstLineIndentRemaining(prefix, s):
+	"""First line indent remaining prefix"""
 	indent = ' ' * len(prefix)
 	lines = prefixLines(indent, s, startAtLine=1)
 	lines[0] = prefix + lines[0]
@@ -257,6 +131,7 @@ def prefixFirstLineIndentRemaining(prefix, s):
 
 
 def formatPair(prefix, arg, value):
+	"""Formatting pair"""
 	if arg is _absent:
 		argLines = []
 		valuePrefix = prefix
@@ -275,6 +150,7 @@ def formatPair(prefix, arg, value):
 
 
 def singledispatch(func):
+	"""Single dispatch function"""
 	if "singledispatch" not in dir(functools):
 		def unsupport_py2(*args, **kwargs):
 			raise NotImplementedError(
@@ -299,13 +175,24 @@ def singledispatch(func):
 
 @singledispatch
 def argumentToString(obj):
+	"""Convert argument to string"""
 	s = DEFAULT_ARG_TO_STRING_FUNCTION(obj)
 	s = s.replace('\\n', '\n')  # Preserve string newlines in output.
 	return s
 
 
 class PyDBG_Obj:
-	_pairDelimiter = '; '  # Used by the tests in tests/.
+	"""Advanced print for debuging
+	
+	>>> pydbg_obj | num: 12
+	            	float_int: 12.12
+	            	string: 'Hello'
+	            	boolean: True
+	            	list_array: [1, 2, 3, 'Hi', True, 12.2]
+	            	dictionary: {1: 'HELLO', 2: 'WORLD'}
+	
+	"""
+	_pairDelimiter = '; '
 	lineWrapWidth = DEFAULT_LINE_WRAP_WIDTH
 	contextDelimiter = DEFAULT_CONTEXT_DELIMITER
 
@@ -313,6 +200,7 @@ class PyDBG_Obj:
 				 outputFunction=DEFAULT_OUTPUT_FUNCTION,
 				 argToStringFunction=argumentToString, includeContext=False,
 				 contextAbsPath=False):
+		"""Initialization"""
 		self.enabled = True
 		self.prefix = prefix
 		self.includeContext = includeContext
@@ -321,6 +209,7 @@ class PyDBG_Obj:
 		self.contextAbsPath = contextAbsPath
 
 	def __call__(self, *args):
+		"""call magic method"""
 		if self.enabled:
 			callFrame = inspect.currentframe().f_back
 			self.outputFunction(self._format(callFrame, *args))
@@ -335,11 +224,13 @@ class PyDBG_Obj:
 		return passthrough
 
 	def format(self, *args):
+		"""Format arguments"""
 		callFrame = inspect.currentframe().f_back
 		out = self._format(callFrame, *args)
 		return out
 
 	def _format(self, callFrame, *args):
+		"""Format helper function"""
 		prefix = callOrValue(self.prefix)
 
 		context = self._formatContext(callFrame)
@@ -355,6 +246,7 @@ class PyDBG_Obj:
 		return out
 
 	def _formatArgs(self, callFrame, prefix, context, args):
+		"""Format arguments"""
 		callNode = Source.executing(callFrame).node
 		if callNode is not None:
 			source = Source.for_frame(callFrame)
@@ -373,6 +265,7 @@ class PyDBG_Obj:
 		return out
 
 	def _constructArgumentOutput(self, prefix, context, pairs):
+		"""Construct argument output"""
 		def argPrefix(arg):
 			return '%s: ' % arg
 
@@ -407,6 +300,7 @@ class PyDBG_Obj:
 		return '\n'.join(lines)
 
 	def _formatContext(self, callFrame):
+		"""function for format call frame"""
 		filename, lineNumber, parentFunction = self._getContext(callFrame)
 
 		if parentFunction != '<module>':
@@ -416,11 +310,13 @@ class PyDBG_Obj:
 		return context
 
 	def _formatTime(self):
+		"""function for format time"""
 		now = datetime.now()
 		formatted = now.strftime('%H:%M:%S.%f')[:-3]
 		return ' at %s' % formatted
 
 	def _getContext(self, callFrame):
+		"""get context of call frame"""
 		frameInfo = inspect.getframeinfo(callFrame)
 		lineNumber = frameInfo.lineno
 		parentFunction = frameInfo.function
@@ -429,14 +325,17 @@ class PyDBG_Obj:
 		return filepath, lineNumber, parentFunction
 
 	def enable(self):
+		"""enable pydbg_obj"""
 		self.enabled = True
 
 	def disable(self):
+		"""disable pydbg_obj"""
 		self.enabled = False
 
 	def configureOutput(self, prefix=_absent, outputFunction=_absent,
 						argToStringFunction=_absent, includeContext=_absent,
 						contextAbsPath=_absent):
+		"""Configure output of pydbg_obj"""
 		noParameterProvided = all(
 			v is _absent for k,v in locals().items() if k != 'self')
 		if noParameterProvided:
@@ -459,45 +358,92 @@ class PyDBG_Obj:
 
 
 class Logger:
+	"""Logger class: print debug info and save this info to log."""
+
 	def __init__(self, filename: str='python.log', level: str='debug'):
+		"""Initiliazation"""
 		self.filename = filename
 		self.level = level
 
 		if self.level not in ['debug', 'info', 'warn', 'error']:
 			raise ValueError(f'Level of logging {self.level} is not supported. Please use debug, info, warn of error')
 
-	def write_to_log(self, message: str):
-		with open(self.filename, 'a', encoding='utf8') as file:
-			file.write(str(message) + '\n')
-		debug_message(f'log @ Update log {FG.green}{self.filename}{Style.reset}', True)
+	def write_to_log(self, message: str) -> bool:
+		"""Helper function for writing to a log file.
+
+		Arguments:
+		---------
+		 + message: str - message for write to log
+
+		Return:
+		------
+		+ bool - True if successful, False otherwise
+
+		"""
+		try:
+			with open(self.filename, 'a', encoding='utf8') as file:
+				file.write(str(message) + '\n')
+		except Exception as e:
+			error_message(f'An error occurred while saving logs: {e}')
+			return False
+		else:
+			return True
 
 	def log(self, message: str, msg_type: str, highlight: bool=False):
+		"""Log function.
+
+		Arguments:
+		---------
+		 + message: str - text of message
+		 + msg_type: str - type of message
+		+ highlight: bool=False - need to highlight text
+
+		"""
 		msg_type = msg_type.lower()
+
 		if msg_type == 'info':
 			info_message(message, highlight)
 		elif msg_type == 'warn':
 			warn_message(message, highlight)
 		elif msg_type == 'error':
 			error_message(message, highlight)
+		elif msg_type == 'debug':
+			debug_message(message, highlight)
 		else:
-			error_message(message, msg_type.upper(), highlight)
+			other_message(message, msg_type.upper(), highlight)
+
+		self.write_to_log(f'[{msg_type.upper()} {datetime.now()}] {message}')
 
 	def debug_func(self, func):
+		"""Decorator for print info about function.
+
+		Arguments:
+		---------
+		+ func - executed func
+
+		"""
 		def wrapper():
 			func()
-			message = f'debug @ Function {FG.blue} {func}(){Style.reset} executed at {FG.magenta}{datetime.now()}{Style.reset}'
-			self.write_to_log(message)
+			message = f'debug @ Function {func}() executed at {datetime.now()}'
+			self.log(message, 'debug')
 			debug_message(message, True)
 		return wrapper
 
 
 def benchmark(func):
+	"""Measuring the speed of function execution (decorator).
+
+	Arguments:
+	---------
+	+ func - executed func
+
+	"""
 	def wrapper():
 		start = monotonic()
 		func()
 		end = monotonic()
 		total = round(end - start, 5)
-		debug_message(f'benchmark {func} @ Execution function {Style.underline}{FG.blue}{func.__name__}{Style.reset} time: {FG.magenta}{total}{Style.reset} sec', True)
+		debug_message(f'benchmark {func} @ Execution function {func.__name__} time: {total} sec', True)
 	return wrapper
 
 

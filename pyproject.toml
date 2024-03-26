@@ -22,7 +22,8 @@ dependencies = [
 	'colorama', 
 	'executing', 
 	'six', 
-	'asttokens'
+	'asttokens',
+	'pygments'
 ]
 keywords = ["logging", 'colors', 'paint', 'paintlog', 'log']
 
