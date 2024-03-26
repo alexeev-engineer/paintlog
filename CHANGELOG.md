@@ -1,3 +1,15 @@
+commit 4edce54e8a5a7bf242f5603a6983255c62a94cb9
+Author: Alexeev Bronislav <bro.alexeev@inbox.ru>
+Date:   Wed Mar 27 01:24:01 2024 +0700
+
+    update docs
+
+commit 3ba8c2a4cf810829c8ff3a758f43329a3cbfe596
+Author: Alexeev Bronislav <bro.alexeev@inbox.ru>
+Date:   Wed Mar 27 01:22:08 2024 +0700
+
+    improve logger with logging module
+
 commit ddeb4e81db59642263d215e9a3da1b6071a39c46
 Author: Alexeev Bronislav <bro.alexeev@inbox.ru>
 Date:   Wed Mar 27 00:22:50 2024 +0700
