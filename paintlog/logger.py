@@ -21,7 +21,7 @@ from pygments import highlight
 from pygments.formatters import Terminal256Formatter
 from pygments.lexers import PythonLexer as PyLexer, Python3Lexer as Py3Lexer
 
-from paintlog.paint import debug_message, info_message, warn_message, error_message, other_message
+from paintlog.paint import debug_message, info_message, warn_message, error_message, other_message, run_exception
 from paintlog.color_highlight import CatppuccinMocha
 
 
@@ -409,6 +409,8 @@ class Logger:
 			error_message(message, highlight)
 		elif msg_type == 'debug':
 			debug_message(message, highlight)
+		elif msg_type == 'exception':
+			run_exception(message, highlight)
 		else:
 			other_message(message, msg_type.upper(), highlight)
 

@@ -151,3 +151,9 @@ def debug_message(text: str, highlight: bool=False) -> str:
 def other_message(text: str, msg_type: str, highlight: bool=False) -> str:
 	prefix = f'{BG.cyan}{FG.black}' if highlight else f'{FG.cyan}'
 	print(f'{prefix}[{msg_type.upper()} {datetime.now()}]{Style.reset} {text}{Style.reset}')
+
+
+def run_exception(text: str, highlight: bool=False):
+	prefix = f'{BG.red}{FG.black}' if highlight else f'{FG.red}'
+	print(f'{Style.bold}{prefix}[EXCEPTION {datetime.now()}]{Style.reset} {text}{Style.reset}')
+	raise Exception(text)

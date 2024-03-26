@@ -5,7 +5,7 @@ Copyright Alexeev Bronislav (C) 2024
 BSD 3 Clause License
 """
 from paintlog.logger import pydbg_obj, benchmark, Logger
-from paintlog.paint import info_message, warn_message, error_message, other_message, FG, Style, debug_message
+from paintlog.paint import info_message, warn_message, error_message, other_message, FG, Style, debug_message, run_exception
 
 logger = Logger('main.log')
 
@@ -51,4 +51,6 @@ logger.log('EXCEPTION logger', 'error', True)
 logger.log('DEBUG logger', 'debug', True)
 logger.log('SOME TEXT logger', 'other', True)
 
-print(f'{FG.red}{Style.bold}BOLD RED{Style.reset}{Style.dim} example')
+print(f'{FG.red}{Style.bold}BOLD RED{Style.reset}{Style.dim} example{Style.reset}')
+
+run_exception('EXCEPTION')
