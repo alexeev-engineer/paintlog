@@ -6,13 +6,12 @@ import os
 
 
 def cls():
+	"""Clear screen (unix)."""
 	os.system('clear')
 
 
 class FG:
-	"""Цвет текста
-	Данный класс содержит константы ansi-кодов разных цветов для текста.
-	"""
+	"""Foreground class."""
 
 	black = "\u001b[30m"
 	red = "\u001b[31m"
@@ -25,22 +24,23 @@ class FG:
 
 	@staticmethod
 	def rgb(r: int, g: int, b: int) -> str:
-		"""Функция для преобразования RGB-цвета в ansi-код.
+		"""Function for convert rgb to ansi color code.
 		
-		Аргументы:
-		 r: int - красный цвет (0-255)
-		 g: int - зеленый цвет (0-255)
-		 b: int - синий цвет (0-255)
+		Arguments:
+		---------
+		 r: int - red color (0-255)
+		 g: int - green color (0-255)
+		 b: int - blue color (0-255)
 
-		Возвращает:
-		+ str - ansi код цвета
+		Return:
+		------
+		+ str - ansi unicode color code
+
 		"""
 		return f"\u001b[38;2;{r};{g};{b}m"
 
 class BG:
-	"""Цвет фона
-	Данный класс содержит константы ansi-кодов разных цветов для фона.
-	"""
+	"""Background class."""
 
 	black = "\u001b[40m"
 	red = "\u001b[41m"
@@ -53,20 +53,25 @@ class BG:
 
 	@staticmethod
 	def rgb(r: int, g: int, b: int) -> str:
-		"""Функция для преобразования RGB-цвета в ansi-код.
+		"""Function for convert rgb to ansi color code.
 		
-		Аргументы:
-		 r: int - красный цвет (0-255)
-		 g: int - зеленый цвет (0-255)
-		 b: int - синий цвет (0-255)
+		Arguments:
+		---------
+		 r: int - red color (0-255)
+		 g: int - green color (0-255)
+		 b: int - blue color (0-255)
 
-		Возвращает:
-		+ str - ansi код цвета
+		Return:
+		------
+		+ str - ansi unicode color code
+
 		"""
 		return f"\u001b[48;2;{r};{g};{b}m"
 
 
 class Style:
+	"""Style class."""
+
 	reset = "\u001b[0m"
 	bold = "\u001b[1m"
 	dim = "\u001b[2m"
@@ -85,15 +90,18 @@ class Style:
 	
 	@staticmethod
 	def to(x, y):
+		"""Move cursor to x, y."""
 		return f"\u001b[{y};{x}H"
 	
 	@staticmethod
 	def write(text="\n"):
+		"""Print to stdout."""
 		stdout.write(text)
 		stdout.flush()
 	
 	@staticmethod
 	def writew(text="\n", wait=0.01):
+		"""Print (typewrite effect)."""
 		for char in text:
 			stdout.write(char)
 			stdout.flush()
@@ -101,6 +109,7 @@ class Style:
   	
 	@staticmethod
 	def read(begin=""):
+		"""Read input from keyboard."""
 		text = ""
 		stdout.write(begin)
 		stdout.flush()
@@ -113,6 +122,7 @@ class Style:
 	
 	@staticmethod
 	def readw(begin="", wait=0.5):
+		"""Read input with wait."""
 		text = ""
 
 		for char in begin:
@@ -129,31 +139,80 @@ class Style:
 
 
 def info_message(text: str, highlight: bool=False) -> str:
+	"""Print info message.
+
+	Arguments:
+	---------
+	 + text: str - text of message
+	+ highlight: bool=False - need to highlight background
+
+	"""
 	prefix = f'{BG.green}{FG.black}' if highlight else f'{FG.green}'
 	print(f'{prefix}[DEBUG {datetime.now()}]{Style.reset} {text}{Style.reset}')
 
 
 def warn_message(text: str, highlight: bool=False) -> str:
+	"""Print warn message.
+
+	Arguments:
+	---------
+	 + text: str - text of message
+	+ highlight: bool=False - need to highlight background
+
+	"""
 	prefix = f'{BG.yellow}{FG.black}' if highlight else f'{FG.yellow}'
 	print(f'{prefix}[DEBUG {datetime.now()}]{Style.reset} {text}{Style.reset}')
 
 
 def error_message(text: str, highlight: bool=False) -> str:
+	"""Print error message.
+
+	Arguments:
+	---------
+	 + text: str - text of message
+	+ highlight: bool=False - need to highlight background
+
+	"""
 	prefix = f'{BG.red}{FG.black}' if highlight else f'{FG.red}'
 	print(f'{prefix}[DEBUG {datetime.now()}]{Style.reset} {text}{Style.reset}')
 
 
 def debug_message(text: str, highlight: bool=False) -> str:
+	"""Print debug message.
+
+	Arguments:
+	---------
+	 + text: str - text of message
+	+ highlight: bool=False - need to highlight background
+
+	"""
 	prefix = f'{BG.magenta}{FG.black}' if highlight else f'{FG.magenta}'
 	print(f'{prefix}[DEBUG {datetime.now()}]{Style.reset} {text}{Style.reset}')
 
 
 def other_message(text: str, msg_type: str, highlight: bool=False) -> str:
+	"""Print messages.
+
+	Arguments:
+	---------
+	 + text: str - text of message
+	 + msg_type: str - type of message (ex. other)
+	+ highlight: bool=False - need to highlight background
+
+	"""
 	prefix = f'{BG.cyan}{FG.black}' if highlight else f'{FG.cyan}'
 	print(f'{prefix}[{msg_type.upper()} {datetime.now()}]{Style.reset} {text}{Style.reset}')
 
 
 def run_exception(text: str, highlight: bool=False):
+	"""Run exception message.
+
+	Arguments:
+	---------
+	 + text: str - text of message
+	+ highlight: bool=False - need to highlight background
+
+	"""
 	prefix = f'{BG.red}{FG.black}' if highlight else f'{FG.red}'
 	print(f'{Style.bold}{prefix}[EXCEPTION {datetime.now()}]{Style.reset} {text}{Style.reset}')
 	raise Exception(text)
