@@ -1,3 +1,9 @@
+commit cbd8f2696255ac9fa1f2b15606e32db8bd1b3216
+Author: Alexeev Bronislav <bro.alexeev@inbox.ru>
+Date:   Wed Mar 27 21:29:19 2024 +0700
+
+    feat/docsupdate logger and paint, fix bugs, update docs
+
 commit 2d7b0f8e611e5ce6262f26b29a13fad67c4475d3
 Author: Alexeev Bronislav <bro.alexeev@inbox.ru>
 Date:   Wed Mar 27 01:24:25 2024 +0700
