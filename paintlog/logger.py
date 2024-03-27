@@ -362,10 +362,11 @@ class PyDBG_Obj:
 class Logger:
 	"""Logger class: print debug info and save this info to log."""
 
-	def __init__(self, filename: str='python.log', level: str='debug'):
+	def __init__(self, logfile: str='paintlog.log', level: str='debug', filename: str=__name__):
 		"""Initiliazation."""
-		self.filename = filename
+		self.logfile = logfile
 		self.level = level
+		self.filename = filename
 
 		if self.level.lower() not in ['debug', 'info', 'warn', 'error', 'critical']:
 			raise ValueError(f'Level of logging {self.level} is not supported. Please use debug, info, warn of error')
@@ -384,10 +385,10 @@ class Logger:
 				case _:
 					self.level = logging.DEBUG
 
-			logging.getLogger(__name__)
-			self.load_config(self.level, self.filename, 'a', "%(name)s/%(module)s at %(lineno)d [%(levelname)s %(asctime)s] %(message)s (function %(funcName)s)")
+			self.load_config(self.level, self.logfile, 'a', "%(name)s [%(levelname)s %(asctime)s] %(message)s")
+			self.logger = logging.getLogger(filename)
 
-	def load_config(self, level, filename: str, filemode: str, log_format: str):
+	def load_config(self, level, logfile: str, filemode: str, log_format: str):
 		"""Load basic config for logging.
 
 		Arguments:
@@ -398,7 +399,7 @@ class Logger:
 		 + log_format: str - format string for log messages
 
 		"""
-		logging.basicConfig(level=level, filename=filename, filemode=filemode, format=log_format)
+		logging.basicConfig(level=level, filename=logfile, filemode=filemode, format=log_format)
 
 	def write_to_log(self, message: str) -> bool:
 		"""Helper function for writing to a log file.
@@ -435,19 +436,19 @@ class Logger:
 
 		if msg_type == 'info':
 			info_message(message, highlight)
-			logging.info(message)
+			self.logger.info(message)
 		elif msg_type == 'warn':
 			warn_message(message, highlight)
-			logging.warning(message)
+			self.logger.warning(message)
 		elif msg_type == 'error':
 			error_message(message, highlight)
-			logging.error(message)
+			self.logger.error(message)
 		elif msg_type == 'debug':
 			debug_message(message, highlight)
-			logging.debug(message)
+			self.logger.debug(message)
 		elif msg_type == 'exception':
 			run_exception(message, highlight)
-			logging.critical(message)
+			self.logger.critical(message)
 		else:
 			other_message(message, msg_type.upper(), highlight)
 

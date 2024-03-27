@@ -7,7 +7,7 @@ BSD 3 Clause License
 from paintlog.logger import pydbg_obj, benchmark, Logger
 from paintlog.paint import info_message, warn_message, error_message, other_message, FG, Style, debug_message, run_exception
 
-logger = Logger('main.log')
+logger = Logger('main.log', filename=__name__)
 
 
 @benchmark

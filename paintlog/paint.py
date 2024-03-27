@@ -161,7 +161,7 @@ def warn_message(text: str, highlight: bool=False) -> str:
 
 	"""
 	prefix = f'{BG.yellow}{FG.black}' if highlight else f'{FG.yellow}'
-	print(f'{prefix}[DEBUG {datetime.now()}]{Style.reset} {text}{Style.reset}')
+	print(f'{prefix}[WARN {datetime.now()}]{Style.reset} {text}{Style.reset}')
 
 
 def error_message(text: str, highlight: bool=False) -> str:

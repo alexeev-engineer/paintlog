@@ -49,7 +49,7 @@ BSD 3 Clause License
 from paintlog.logger import pydbg_obj, benchmark, Logger
 from paintlog.paint import info_message, warn_message, error_message, other_message, FG, Style, debug_message, run_exception
 
-logger = Logger('main.log')
+logger = Logger('main.log', filename=__name__)
 
 
 @benchmark
@@ -122,7 +122,6 @@ Here you can see what paintlog can already do and what else is planned to be add
  - [x] Update advanced print for debug (pydbg_obj)
  - [x] Improve logging
  - [ ] Upload logs to Google Drive
- - [ ] Support async
 
 ## Copyright
 Copyright © 2024, Alexeev Bronislav
