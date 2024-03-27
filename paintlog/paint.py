@@ -148,7 +148,7 @@ def info_message(text: str, highlight: bool=False) -> str:
 
 	"""
 	prefix = f'{BG.green}{FG.black}' if highlight else f'{FG.green}'
-	print(f'{prefix}[DEBUG {datetime.now()}]{Style.reset} {text}{Style.reset}')
+	print(f'{prefix}[INFO {datetime.now()}]{Style.reset} {text}{Style.reset}')
 
 
 def warn_message(text: str, highlight: bool=False) -> str:
@@ -174,7 +174,7 @@ def error_message(text: str, highlight: bool=False) -> str:
 
 	"""
 	prefix = f'{BG.red}{FG.black}' if highlight else f'{FG.red}'
-	print(f'{prefix}[DEBUG {datetime.now()}]{Style.reset} {text}{Style.reset}')
+	print(f'{prefix}[ERROR {datetime.now()}]{Style.reset} {text}{Style.reset}')
 
 
 def debug_message(text: str, highlight: bool=False) -> str:

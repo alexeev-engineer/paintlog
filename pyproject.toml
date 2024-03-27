@@ -1,6 +1,6 @@
 [project]
 name = "paintlogio-py"
-version = "0.3.5"
+version = "0.3.6"
 
 authors = [
 	{ name="Alexeev Bronislav", email="bro.alexeev@inbox.ru" },
